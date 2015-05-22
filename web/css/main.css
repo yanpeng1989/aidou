@@ -1,0 +1,99 @@
+/* 
+    Created on : 2015-4-27, 22:19:42
+    Author     : Administrator
+*/
+body{
+    background-color:#F7F7F9;
+    text-align:center;
+}
+.main_contain{
+    margin:0 auto;
+    width: 100%;
+    border: crimson solid 0px
+}
+
+.button_style{
+    width: 32%;
+    height: 60px;
+    font-size: 150%;
+}
+.order_btn{
+    width: 80%;
+    height: 65px;
+    font-size: 260%;
+}
+.order_table{
+    width: 98%;
+    height: 60px;
+    font-size: 150%;
+    text-align:center
+}
+.order_td_0{
+    width: 15%;
+    height: 80px;
+}
+.order_td_1{
+    width: 30%;
+    height: 80px;
+}
+.order_td_2{
+    width: 10%;
+    height: 80px;
+}
+.order_td_3{
+    width: 20%;
+    height: 80px;
+}
+
+//orderlist
+.list_table{
+    width: 98%;
+    height: 90px;
+    font-size: 150%;
+    text-align:center
+}
+//unfinished
+.unfinished_table{
+    width: 98%;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_0{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_1{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_2{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_3{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_btn{
+    height: 40px;
+    font-size: 100%;
+}
+//detail
+.detail_table{
+    width: 98%;
+    height: 90px;
+    font-size: 150%;
+    text-align:center
+}
+.btn_detail{
+    width: 19%;
+}
+
