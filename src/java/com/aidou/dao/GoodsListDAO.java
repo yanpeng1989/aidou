@@ -231,6 +231,7 @@ public class GoodsListDAO {
             System.out.println("更新失败");
         }
     }
+
     public List<ListModel> GetFuListFinished(String order_status) {
         final List<ListModel> fulist = new ArrayList<ListModel>();
         try {
@@ -256,22 +257,45 @@ public class GoodsListDAO {
             return null;
         }
     }
-    //获取物品库存列表清单
-    public List<GoodsModel> GoodsDetail() {
-        String SQL = "select id,brand,proname,label,amount from goods";
-        List<GoodsModel> goods = new ArrayList<GoodsModel>();
-        List rows = jdbcTemplate.queryForList(SQL);
-        for (int i = 0; i < rows.size(); i++) {
-            Map map = (Map) rows.get(i);
-            GoodsModel GM = new GoodsModel();
-            GM.setId((String) map.get("id").toString());
-            GM.setBrand((String) map.get("brand"));
-            GM.setProname((String) map.get("proname"));
-            GM.setLabel((String) map.get("label"));
-            GM.setAmount((int)map.get("amount"));
-            goods.add(GM);
+
+    //获取物品库存列表清单id,brand proname label amount
+    public List<GoodsModel> GoodsDetail(String brand) {
+        String SQL = "select id,brand,proname,label,amount from goods where brand=?";
+        final List<GoodsModel> goods = new ArrayList<GoodsModel>();
+        final List<ListModel> fulist = new ArrayList<ListModel>();
+        try {
+            jdbcTemplate.query(SQL, new Object[]{brand},
+                    new RowCallbackHandler() {
+                        @Override
+                        public void processRow(ResultSet rs) throws SQLException {
+                            GoodsModel lm = new GoodsModel();
+                            lm.setId(rs.getString("id"));
+                            lm.setBrand(rs.getString("brand"));
+                            lm.setProname(rs.getString("proname"));
+                            lm.setLabel(rs.getString("label"));
+                            lm.setAmount(rs.getInt("amount"));
+                            goods.add(lm);
+                        }
+                    });
+            return goods;
+        } catch (Exception e) {
+            return null;
         }
-        return goods;
+    }
+
+    //验证用户登录信息
+    public boolean Login_Msg(String telephone, String author) {
+        String sql = "SELECT SUM(id) FROM man WHERE telephone=? AND authority=?";
+        try {
+            int sum = jdbcTemplate.queryForObject(sql, new Object[]{telephone, author}, Integer.class);
+            if (sum > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

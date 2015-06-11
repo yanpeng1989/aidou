@@ -29,34 +29,40 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller
 @RequestMapping(value = "/wechat")
-@SessionAttributes("list")
+@SessionAttributes(value = {"list", "telephone"}, types = {OrderListModel.class, String.class})
 public class HomeController implements Serializable {
 
     @Autowired
     GoodListService goodListService;
-//所有物品列表
 
+//所有物品列表
     @RequestMapping(value = "order.do")
-    public String Order(Model model) {
-        List<GoodsModel> aidou = new ArrayList<>();
-        List<GoodsModel> zhaodajie = new ArrayList<>();
-        List<GoodsModel> other = new ArrayList<>();
-        GoodsModel gm = new GoodsModel();
-        List<GoodsModel> ls = goodListService.getGoods();
-        for (int i = 0; i < ls.size(); i++) {
-            gm = ls.get(i);
-            if (gm.getBrand().equals("艾豆")) {
-                aidou.add(gm);
-            } else if (gm.getBrand().equals("赵大姐")) {
-                zhaodajie.add(gm);
-            } else if (gm.getBrand().equals("其他")) {
-                other.add(gm);
+    public String Order(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String tel = (String) session.getAttribute("telephone");
+        if (tel != null) {
+            List<GoodsModel> aidou = new ArrayList<>();
+            List<GoodsModel> zhaodajie = new ArrayList<>();
+            List<GoodsModel> other = new ArrayList<>();
+            GoodsModel gm = new GoodsModel();
+            List<GoodsModel> ls = goodListService.getGoods();
+            for (int i = 0; i < ls.size(); i++) {
+                gm = ls.get(i);
+                if (gm.getBrand().equals("艾豆")) {
+                    aidou.add(gm);
+                } else if (gm.getBrand().equals("赵大姐")) {
+                    zhaodajie.add(gm);
+                } else if (gm.getBrand().equals("其他")) {
+                    other.add(gm);
+                }
             }
+            model.addAttribute("aidou", aidou);
+            model.addAttribute("zhaodajie", zhaodajie);
+            model.addAttribute("other", other);
+            return "/wechat/order";
+        } else {
+            return "/wechat/error";
         }
-        model.addAttribute("aidou", aidou);
-        model.addAttribute("zhaodajie", zhaodajie);
-        model.addAttribute("other", other);
-        return "/wechat/order";
     }
 
 //显示选择订单
@@ -105,12 +111,15 @@ public class HomeController implements Serializable {
                     } else {
                         return "/wechat/error";
                     }
+                } else {
+                    return "/wechat/error";
                 }
+            } else {
+                return "/wechat/error";
             }
         } catch (Exception e) {
             return "/wechat/error";
         }
-        return "/wechat/success";
     }
 
     @RequestMapping(value = "unfinished.do")
@@ -192,7 +201,6 @@ public class HomeController implements Serializable {
                     String sql1 = "DELETE FROM fu_order WHERE id=?";
                     goodListService.DeleteOrderService(orderid, sql1);
                 } catch (Exception e) {
-                    System.out.println("异常1");
                     return "/wechat/error";
                 }
             }
@@ -254,22 +262,49 @@ public class HomeController implements Serializable {
         }
     }
 
-    
     //已完成
     @RequestMapping(value = "finished.do")
     public String Finished(Model model) {
         model.addAttribute("finished", goodListService.GetFuListFinishedService("订单完成"));
         return "/wechat/finished";
     }
+
     //库存情况
     @RequestMapping(value = "inventory.do")
-    public String Inventory(Model model){
-        model.addAttribute("inventory", goodListService.GoodsDetailService());
+    public String Inventory(Model model) {
+        model.addAttribute("inventory_aidou", goodListService.GoodsDetailService("艾豆"));
+        model.addAttribute("inventory_zhaodajie", goodListService.GoodsDetailService("赵大姐"));
+        model.addAttribute("inventory_other", goodListService.GoodsDetailService("其他"));
         return "/wechat/inventory";
     }
+//登录
+
+    @RequestMapping(value = "login_form.do")
+    public String LoginForm(HttpServletRequest request, Model model) {
+        String telephone = request.getParameter("telephone");
+        String author = request.getParameter("author");
+        try {
+            if (goodListService.Login_MsgService(telephone, author)) {
+                model.addAttribute("telephone", telephone);
+                return "/wechat/success";
+            } else {
+                return "/wechat/error";
+            }
+        } catch (Exception e) {
+            return "/wechat/error";
+        }
+    }
+
+    @RequestMapping(value = "login.do")
+    public String Login(HttpServletRequest request, Model model) {
+        return "/wechat/login";
+    }
+
     @RequestMapping(value = "test.do")
     public String Test(HttpServletRequest request, Model model) {
         model.addAttribute("key", "uuukey");
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute("telephone"));
         return "/wechat/test";
     }
 

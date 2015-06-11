@@ -103,8 +103,11 @@ public class GoodListService {
         return fulist;
     }
 
-    public List<GoodsModel> GoodsDetailService() {
-        return goodsListDAO.GoodsDetail();
+    public List<GoodsModel> GoodsDetailService(String brand) {
+        return goodsListDAO.GoodsDetail(brand);
+    }
+    public boolean Login_MsgService(String telephone, String author){
+        return goodsListDAO.Login_Msg(telephone, author);
     }
 
 }

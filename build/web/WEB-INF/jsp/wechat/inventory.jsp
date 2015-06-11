@@ -30,39 +30,39 @@
             </ul>
             <div id="aidou">
                 <table class="order_table table table-hover">
-                    <c:forEach var="aidou" items="${aidou}">
+                    <c:forEach var="aidou" items="${inventory_aidou}" varStatus="status">
                         <tr>
-                            <td class="order_td_0">${aidou.id}</td>
-                            <td class="order_td_0">${aidou.brand}</td>
+                            <td class="order_td_0">${status.index + 1}</td>
+<!--                            <td class="order_td_0">${aidou.brand}</td>-->
                             <td class="order_td_1">${aidou.proname}</td>
                             <td class="order_td_2">${aidou.label}</td>
-                            <td class="order_td_3"cla><input type="text" name="${aidou.id}" min="0" class="form-control stepper" placeholder="0"/></td>
+                            <td class="order_td_2">${aidou.amount}</td>
                         </tr>
                     </c:forEach>
                 </table>
             </div>
             <div id="zhaodajie">
                 <table class="order_table table table-hover">
-                    <c:forEach var="zhaodajie" items="${zhaodajie}">
+                    <c:forEach var="zhaodajie" items="${inventory_zhaodajie}" varStatus="status">
                         <tr>
-                            <td class="order_td_0">${zhaodajie.id}</td>
-                            <td class="order_td_0">${zhaodajie.brand}</td>
+                            <td class="order_td_0">${status.index + 1}</td>
+<!--                            <td class="order_td_0">${zhaodajie.brand}</td>-->
                             <td class="order_td_1">${zhaodajie.proname}</td>
                             <td class="order_td_2">${zhaodajie.label}</td>
-                            <td class="order_td_3"cla><input type="text" name="${zhaodajie.id}" min="2" class="stepper form-control" placeholder="0"/></td>
+                            <td class="order_td_2">${zhaodajie.amount}</td>
                         </tr>
                     </c:forEach>
                 </table>
             </div>
             <div id="other">
                 <table class="order_table table table-hover">
-                    <c:forEach var="other" items="${other}">
+                    <c:forEach var="other" items="${inventory_other}" varStatus="status">
                         <tr>
-                            <td class="order_td_0">${other.id}</td>
-                            <td class="order_td_0">${other.brand}</td>
+                            <td class="order_td_0">${status.index + 1}</td>
+<!--                            <td class="order_td_0">${other.brand}</td>-->
                             <td class="order_td_1">${other.proname}</td>
                             <td class="order_td_2">${other.label}</td>
-                            <td class="order_td_3"cla><input  type="text"  name="${other.id}" min="2" class="stepper form-control" placeholder="0"/></td>
+                            <td class="order_td_2">${other.amount}</td>
                         </tr>
                     </c:forEach>
                 </table>

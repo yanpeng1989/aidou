@@ -44,7 +44,7 @@
                                 <td class="order_td_0">${aidou.brand}</td>-->
                                 <td class="order_td_1">${aidou.proname}</td>
                                 <td class="order_td_2">${aidou.label}</td>
-                                <td class="order_td_3"cla><input type="text" name="${aidou.id}" min="0" class="form-control stepper" placeholder="0"/></td>
+                                <td class="order_td_3"><input type="text" name="${aidou.id}" min="0" class="form-control stepper" placeholder="0"/></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -57,7 +57,7 @@
                                 <td class="order_td_0">${zhaodajie.brand}</td>-->
                                 <td class="order_td_1">${zhaodajie.proname}</td>
                                 <td class="order_td_2">${zhaodajie.label}</td>
-                                <td class="order_td_3"cla><input type="text" name="${zhaodajie.id}" min="2" class="stepper form-control" placeholder="0"/></td>
+                                <td class="order_td_3"><input type="text" name="${zhaodajie.id}" min="2" class="stepper form-control" placeholder="0"/></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -70,7 +70,7 @@
                                 <td class="order_td_0">${other.brand}</td>-->
                                 <td class="order_td_1">${other.proname}</td>
                                 <td class="order_td_2">${other.label}</td>
-                                <td class="order_td_3"cla><input  type="text"  name="${other.id}" min="2" class="stepper form-control" placeholder="0"/></td>
+                                <td class="order_td_3"><input  type="text"  name="${other.id}" min="2" class="stepper form-control" placeholder="0"/></td>
                             </tr>
                         </c:forEach>
                     </table>
