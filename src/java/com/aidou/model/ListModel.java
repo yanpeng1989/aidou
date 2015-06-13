@@ -17,9 +17,12 @@ public class ListModel {
     public String merchant_tel;
     public String merchant_address;
     public String freight_type;
+    public String freight_number;
     public String reach_time;
     public String order_status;
     public String man_telephone;
+    public String order_time;
+    public String update_time;
     public String sum;
 
     public String getId() {
@@ -70,6 +73,14 @@ public class ListModel {
         this.freight_type = freight_type;
     }
 
+    public String getFreight_number() {
+        return freight_number;
+    }
+
+    public void setFreight_number(String freight_number) {
+        this.freight_number = freight_number;
+    }
+
     public String getReach_time() {
         return reach_time;
     }
@@ -92,6 +103,22 @@ public class ListModel {
 
     public void setMan_telephone(String man_telephone) {
         this.man_telephone = man_telephone;
+    }
+
+    public String getOrder_time() {
+        return order_time;
+    }
+
+    public void setOrder_time(String order_time) {
+        this.order_time = order_time;
+    }
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
     }
 
     public String getSum() {

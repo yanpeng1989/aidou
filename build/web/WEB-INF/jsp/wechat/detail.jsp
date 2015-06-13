@@ -100,8 +100,13 @@
                     <div class="modal-body">
                         <form id="sendForm" name="sendForm" action="/aidou/wechat/sendForm.do" method="post">
                             <div class="form-group">
-                                运费形式<input id="freight_type" type="text" name="freight_type" class="form-control" id="recipient-name">
-                                预计到达时间<input id="reach_time" type="text" name="reach_time" class="form-control" id="recipient-name">
+                                运费金额<input id="freight_number" type="text" name="freight_number" class="form-control">
+                                运费形式<select id="freight_type" name="freight_type" class="form-control">
+                                    <option value="物流垫付" selected="selected">物流垫付</option>
+                                    <option value="客户垫付" selected="selected">客户垫付</option>
+                                    <option value="客户自理" selected="selected">客户自理</option>
+                                </select>
+                                预计到达时间<input id="reach_time" type="text" name="reach_time" class="form-control">
                                 授权码<input id="author_4" type="text" name="author" class="form-control" id="recipient-name">
                                 <input name="order_id" value="${id}" hidden="true">
                                 <input  name="order_status" value="${order_status}" hidden="true">
@@ -159,11 +164,23 @@
             <table class="detail_table table table-hover">
                 <c:forEach var="fubDatail" items="${fubDatail}">
                     <tr>
+                        <td>下单时间：${fubDatail.order_time}</td>
+                        <td>更新时间：${fubDatail.update_time}</td>
+                    </tr>
+                    <tr>
                         <td>经销商：${fubDatail.merchant_name}</td>
                         <td> 电话：${fubDatail.merchant_tel}</td>
                     </tr>
                     <tr>
                         <td>地址：${fubDatail.merchant_address}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>运费形式：${fubDatail.freight_type}</td>
+                        <td>运费金额：${fubDatail.freight_number}</td>
+                    </tr>
+                    <tr>
+                        <td>预计到达：${fubDatail.reach_time}</td>
                         <td></td>
                     </tr>
                     <tr>
@@ -175,8 +192,10 @@
         </div>
         <div>
             <button type="button" id="confirm" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#confirmModal" >订单确认</button>
+            <button type="button" id="production_completed" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#production_completedModal" >生产预计</button>
             <button type="button" id="production_completed" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#production_completedModal" >生产完毕</button>
             <button type="button" id="change" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#changeModal" >订单调整</button>
+            <button type="button" id="change" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#changeModal" >同意发货</button>
             <button type="button" id="send" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#sendModal" >订单发货</button>
             <button type="button" id="order_completed" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#order_completedModal" >订单完成</button>
         </div>
@@ -214,8 +233,8 @@
         });
         $("#sendModal").on('shown.bs.modal', function () {
             $('#send_btn').click(function () {
-                if ($("#freight_type").val() == "") {
-                    alert("请输入运费形式！");
+                if ($("#freight_number").val() == "") {
+                    alert("请输入运费金额！");
                 } else if ($("#reach_time").val() == "") {
                     alert("请输入预计到达时间！");
                 } else if ($("#author_4").val() == "") {

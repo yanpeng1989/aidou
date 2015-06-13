@@ -20,4 +20,13 @@ public class CurrentTime {
         String dateString = formatter.format(currentTime);
         return dateString;
     }
+    public String CurrentTime2(){
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
+//    public static void main(String[] args){
+//        System.out.println(CurrentTime2());
+//    }
 }

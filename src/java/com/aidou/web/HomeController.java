@@ -61,7 +61,7 @@ public class HomeController implements Serializable {
             model.addAttribute("other", other);
             return "/wechat/order";
         } else {
-            return "/wechat/error";
+            return "/wechat/login";
         }
     }
 
@@ -123,9 +123,15 @@ public class HomeController implements Serializable {
     }
 
     @RequestMapping(value = "unfinished.do")
-    public String Unfinished(Model model) {
-        model.addAttribute("unfinished", goodListService.GetFuListService("订单完成"));
-        return "/wechat/unfinished";
+    public String Unfinished(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String tel = (String) session.getAttribute("telephone");
+        if (tel != null) {
+            model.addAttribute("unfinished", goodListService.GetFuListService("订单完成",tel));
+            return "/wechat/unfinished";
+        } else {
+            return "/wechat/login";
+        }
     }
 
     @RequestMapping(value = "detail.do", method = RequestMethod.GET)
@@ -154,7 +160,7 @@ public class HomeController implements Serializable {
                 }
             } else if (ordermsg.equals("订单无误")) {
                 try {
-                    String sql2 = "UPDATE fu_order SET order_status = '已确认' WHERE id = ?";
+                    String sql2 = "UPDATE fu_order SET order_status = '已确认',update_time=? WHERE id = ?";
                     goodListService.UpdateOrderStatusService(orderid, sql2);
                 } catch (Exception e) {
                     System.out.println("异常2");
@@ -175,7 +181,7 @@ public class HomeController implements Serializable {
         if (orderstatus.equals("已确认")) {
             if (au.getType().equals("生产人员")) {
                 try {
-                    String sql2 = "UPDATE fu_order SET order_status = '生产完毕' WHERE id = ?";
+                    String sql2 = "UPDATE fu_order SET order_status = '生产完毕',update_time=? WHERE id = ?";
                     goodListService.UpdateOrderStatusService(orderid, sql2);
                 } catch (Exception e) {
                     System.out.println("异常2");
@@ -214,6 +220,7 @@ public class HomeController implements Serializable {
     public String SendForm(HttpServletRequest request, Model model) {
         String author = request.getParameter("author");
         String orderid = request.getParameter("order_id");
+        String freight_number = request.getParameter("freight_number");
         String freight_type = request.getParameter("freight_type");
         String reach_time = request.getParameter("reach_time");
         String order_status = request.getParameter("order_status");
@@ -221,12 +228,14 @@ public class HomeController implements Serializable {
         if (order_status.equals("生产完毕")) {
             if (au.getType().equals("物流人员")) {
                 try {
-                    String sql2 = "UPDATE fu_order SET order_status = '订单发货' WHERE id = ?";
-                    String sql3 = "UPDATE fu_order SET freight_type = '" + freight_type + "' WHERE id = ?";
-                    String sql4 = "UPDATE fu_order SET reach_time = '" + reach_time + "' WHERE id = ?";
+                    String sql2 = "UPDATE fu_order SET order_status = '订单发货',update_time=? WHERE id = ?";
+                    String sql3 = "UPDATE fu_order SET freight_type = '" + freight_type + "',update_time=? WHERE id = ?";
+                    String sql4 = "UPDATE fu_order SET freight_number = '" + freight_number + "',update_time=? WHERE id = ?";
+                    String sql5 = "UPDATE fu_order SET reach_time = '" + reach_time + "',update_time=? WHERE id = ?";
                     goodListService.UpdateOrderStatusService(orderid, sql2);
                     goodListService.UpdateOrderStatusService(orderid, sql3);
                     goodListService.UpdateOrderStatusService(orderid, sql4);
+                    goodListService.UpdateOrderStatusService(orderid, sql5);
                 } catch (Exception e) {
                     System.out.println("异常2");
                 }
@@ -248,7 +257,7 @@ public class HomeController implements Serializable {
         if (orderstatus.equals("订单发货")) {
             if (au.getType().equals("业务人员")) {
                 try {
-                    String sql2 = "UPDATE fu_order SET order_status = '订单完成' WHERE id = ?";
+                    String sql2 = "UPDATE fu_order SET order_status = '订单完成',update_time=? WHERE id = ?";
                     goodListService.UpdateOrderStatusService(orderid, sql2);
                 } catch (Exception e) {
                     System.out.println("异常2");
@@ -264,9 +273,15 @@ public class HomeController implements Serializable {
 
     //已完成
     @RequestMapping(value = "finished.do")
-    public String Finished(Model model) {
-        model.addAttribute("finished", goodListService.GetFuListFinishedService("订单完成"));
-        return "/wechat/finished";
+    public String Finished(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String tel = (String) session.getAttribute("telephone");
+        if (tel != null) {
+            model.addAttribute("finished", goodListService.GetFuListFinishedService("订单完成",tel));
+            return "/wechat/finished";
+        } else {
+            return "/wechat/login";
+        }
     }
 
     //库存情况

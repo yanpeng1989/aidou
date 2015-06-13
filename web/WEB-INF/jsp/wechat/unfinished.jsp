@@ -15,16 +15,16 @@
             <div class="main_contain">
                 <table class="unfinished_table table table-hover ">
                     <tr>
-                        <td class="unfinished_td_0">序号</td>
+                        <td class="unfinished_td_0">编号</td>
                         <td class="unfinished_td_1">业务员</td>
                         <td class="unfinished_td_1">经销商</td>
                         <td class="unfinished_td_2">数量</td>
                         <td class="unfinished_td_1">状态</td>
                         <td class="unfinished_td_3">详情</td>
                     </tr>
-                <c:forEach var="unfinished" items="${unfinished}" varStatus="status">
+                <c:forEach var="unfinished" items="${unfinished}">
                     <tr>
-                        <td class="unfinished_td_0">${status.index + 1}</td>
+                        <td class="unfinished_td_0">${unfinished.id}</td>
                         <td class="unfinished_td_1">${unfinished.man_telephone}</td>
                         <td class="unfinished_td_1">${unfinished.merchant_name}</td>
                         <td class="unfinished_td_2">${unfinished.sum}</td>
