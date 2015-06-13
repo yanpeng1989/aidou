@@ -127,7 +127,7 @@ public class HomeController implements Serializable {
         HttpSession session = request.getSession();
         String tel = (String) session.getAttribute("telephone");
         if (tel != null) {
-            model.addAttribute("unfinished", goodListService.GetFuListService("订单完成",tel));
+            model.addAttribute("unfinished", goodListService.GetFuListService("订单完成", tel));
             return "/wechat/unfinished";
         } else {
             return "/wechat/login";
@@ -172,13 +172,36 @@ public class HomeController implements Serializable {
         }
     }
 
+    @RequestMapping(value = "production_predictForm.do", method = RequestMethod.POST)
+    public String Production_predictForm(HttpServletRequest request, Model model) {
+        String ordermsg = request.getParameter("production_predict_time");
+        String author = request.getParameter("author");
+        String orderid = request.getParameter("order_id");
+        Man au = goodListService.IsAuthorityService(author);
+        if (au.getType().equals("生产人员")) {
+            if (!ordermsg.equals(null)) {
+                try {
+                    String sql1 = "UPDATE fu_order SET production_predict_time = '" + ordermsg + "',update_time=? WHERE id = ?";
+                    goodListService.UpdateOrderStatusService(orderid, sql1);
+                    String sql2 = "UPDATE fu_order SET order_status = '预计生产',update_time=? WHERE id = ?";
+                    goodListService.UpdateOrderStatusService(orderid, sql2);
+                } catch (Exception e) {
+                    System.out.println("异常");
+                }
+            }
+            return "/wechat/test";
+        } else {
+            return "/wechat/error";
+        }
+    }
+
     @RequestMapping(value = "production_completedForm.do", method = RequestMethod.POST)
     public String Production_completedForm(HttpServletRequest request, Model model) {
         String author = request.getParameter("author");
         String orderid = request.getParameter("order_id");
         String orderstatus = request.getParameter("order_status");
         Man au = goodListService.IsAuthorityService(author);
-        if (orderstatus.equals("已确认")) {
+        if (orderstatus.equals("预计生产")) {
             if (au.getType().equals("生产人员")) {
                 try {
                     String sql2 = "UPDATE fu_order SET order_status = '生产完毕',update_time=? WHERE id = ?";
@@ -200,20 +223,54 @@ public class HomeController implements Serializable {
         String ordermsg = request.getParameter("order_msg");
         String author = request.getParameter("author");
         String orderid = request.getParameter("order_id");
+        String orderstatus = request.getParameter("order_status");
         Man au = goodListService.IsAuthorityService(author);
-        if (au.getType().equals("管理人员")) {
-            if (ordermsg.equals("订单有误")) {
-                try {
-                    String sql1 = "DELETE FROM fu_order WHERE id=?";
-                    goodListService.DeleteOrderService(orderid, sql1);
-                } catch (Exception e) {
-                    return "/wechat/error";
+        if (orderstatus.equals("生产完毕")) {
+            if (au.getType().equals("管理人员")) {
+                if (ordermsg.equals("订单有误")) {
+                    try {
+                        String sql1 = "DELETE FROM fu_order WHERE id=?";
+                        goodListService.DeleteOrderService(orderid, sql1);
+                    } catch (Exception e) {
+                        return "/wechat/error";
+                    }
+                } else {
+                    try {
+                        String sql2 = "UPDATE fu_order SET order_status = '订单无改变',update_time=? WHERE id = ?";
+                        goodListService.UpdateOrderStatusService(orderid, sql2);
+                    } catch (Exception e) {
+                        System.out.println("异常2");
+                    }
+                    return "/wechat/test";
                 }
             }
-            return "/wechat/test";
+            return "/wechat/error";
         } else {
             return "/wechat/error";
         }
+
+    }
+
+    @RequestMapping(value = "agree_sendForm.do", method = RequestMethod.POST)
+    public String Agree_sendForm(HttpServletRequest request, Model model) {
+        String author = request.getParameter("author");
+        String orderid = request.getParameter("order_id");
+        String orderstatus = request.getParameter("order_status");
+        Man au = goodListService.IsAuthorityService(author);
+        if (orderstatus.equals("订单无改变")) {
+            if (au.getType().equals("管理人员")) {
+                try {
+                    String sql2 = "UPDATE fu_order SET order_status = '允许发货',update_time=? WHERE id = ?";
+                    goodListService.UpdateOrderStatusService(orderid, sql2);
+                } catch (Exception e) {
+                    System.out.println("异常2");
+                }
+                return "/wechat/test";
+            } else {
+                return "/wechat/error";
+            }
+        }
+        return "/wechat/error";
     }
 
     @RequestMapping(value = "sendForm.do", method = RequestMethod.POST)
@@ -225,7 +282,7 @@ public class HomeController implements Serializable {
         String reach_time = request.getParameter("reach_time");
         String order_status = request.getParameter("order_status");
         Man au = goodListService.IsAuthorityService(author);
-        if (order_status.equals("生产完毕")) {
+        if (order_status.equals("允许发货")) {
             if (au.getType().equals("物流人员")) {
                 try {
                     String sql2 = "UPDATE fu_order SET order_status = '订单发货',update_time=? WHERE id = ?";
@@ -273,11 +330,12 @@ public class HomeController implements Serializable {
 
     //已完成
     @RequestMapping(value = "finished.do")
-    public String Finished(Model model, HttpServletRequest request) {
+    public String Finished(Model model, HttpServletRequest request
+    ) {
         HttpSession session = request.getSession();
         String tel = (String) session.getAttribute("telephone");
         if (tel != null) {
-            model.addAttribute("finished", goodListService.GetFuListFinishedService("订单完成",tel));
+            model.addAttribute("finished", goodListService.GetFuListFinishedService("订单完成", tel));
             return "/wechat/finished";
         } else {
             return "/wechat/login";
@@ -286,7 +344,8 @@ public class HomeController implements Serializable {
 
     //库存情况
     @RequestMapping(value = "inventory.do")
-    public String Inventory(Model model) {
+    public String Inventory(Model model
+    ) {
         model.addAttribute("inventory_aidou", goodListService.GoodsDetailService("艾豆"));
         model.addAttribute("inventory_zhaodajie", goodListService.GoodsDetailService("赵大姐"));
         model.addAttribute("inventory_other", goodListService.GoodsDetailService("其他"));
@@ -295,7 +354,8 @@ public class HomeController implements Serializable {
 //登录
 
     @RequestMapping(value = "login_form.do")
-    public String LoginForm(HttpServletRequest request, Model model) {
+    public String LoginForm(HttpServletRequest request, Model model
+    ) {
         String telephone = request.getParameter("telephone");
         String author = request.getParameter("author");
         try {
@@ -311,12 +371,14 @@ public class HomeController implements Serializable {
     }
 
     @RequestMapping(value = "login.do")
-    public String Login(HttpServletRequest request, Model model) {
+    public String Login(HttpServletRequest request, Model model
+    ) {
         return "/wechat/login";
     }
 
     @RequestMapping(value = "test.do")
-    public String Test(HttpServletRequest request, Model model) {
+    public String Test(HttpServletRequest request, Model model
+    ) {
         model.addAttribute("key", "uuukey");
         HttpSession session = request.getSession();
         System.out.println(session.getAttribute("telephone"));

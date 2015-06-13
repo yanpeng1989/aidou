@@ -23,6 +23,7 @@ public class ListModel {
     public String man_telephone;
     public String order_time;
     public String update_time;
+    public String production_predict_time;
     public String sum;
 
     public String getId() {
@@ -119,6 +120,14 @@ public class ListModel {
 
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
+    }
+
+    public String getProduction_predict_time() {
+        return production_predict_time;
+    }
+
+    public void setProduction_predict_time(String production_predict_time) {
+        this.production_predict_time = production_predict_time;
     }
 
     public String getSum() {

@@ -107,7 +107,7 @@ public class GoodsListDAO {
 //更新父清单订购商信息
     public void AddMerchantMsg(final String merchant_name, final String merchant_tel, final String merchant_address, final String man_telephone, final String id) {
         try {
-            jdbcTemplate.update("UPDATE fu_order SET merchant_name = ? ,merchant_tel = ?,merchant_address = ?,man_telephone = ?,update_time=? WHERE id = ?", new Object[]{merchant_name, merchant_tel, merchant_address, man_telephone,currenttime2, id});
+            jdbcTemplate.update("UPDATE fu_order SET merchant_name = ? ,merchant_tel = ?,merchant_address = ?,man_telephone = ?,update_time=? WHERE id = ?", new Object[]{merchant_name, merchant_tel, merchant_address, man_telephone, currenttime2, id});
         } catch (Exception e) {
         }
     }
@@ -115,28 +115,68 @@ public class GoodsListDAO {
 //获取父清单列表
 //id;merchant_id;merchant_name;merchant_tel;merchant_address;freight_type;reach_time; order_status; man_telephone;
     public List<ListModel> GetFuList(String order_status, String man_telephone) {
-        final List<ListModel> fulist = new ArrayList<ListModel>();
+        final Man user = new Man();
         try {
-            jdbcTemplate.query("select id,merchant_id,merchant_name,merchant_tel,merchant_address,freight_type,reach_time, order_status, man_telephone from fu_order where order_status <>? and man_telephone=?", new Object[]{order_status, man_telephone},
+            jdbcTemplate.query("select name,telephone,type,authority from man where telephone=?", new Object[]{man_telephone},
                     new RowCallbackHandler() {
                         @Override
                         public void processRow(ResultSet rs) throws SQLException {
-                            ListModel lm = new ListModel();
-                            lm.setId(rs.getString("id"));
-                            lm.setMerchant_id(rs.getString("merchant_id"));
-                            lm.setMerchant_name(rs.getString("merchant_name"));
-                            lm.setMerchant_tel(rs.getString("merchant_tel"));
-                            lm.setMerchant_address(rs.getString("merchant_address"));
-                            lm.setFreight_type(rs.getString("freight_type"));
-                            lm.setReach_time(rs.getString("reach_time"));
-                            lm.setOrder_status(rs.getString("order_status"));
-                            lm.setMan_telephone(rs.getString("man_telephone"));
-                            fulist.add(lm);
+                            user.setName(rs.getString("name"));
+                            user.setTelephone(rs.getString("telephone"));
+                            user.setType(rs.getString("type"));
+                            user.setAuthority(rs.getString("authority"));
                         }
                     });
-            return fulist;
         } catch (Exception e) {
-            return null;
+
+        }
+        final List<ListModel> fulist = new ArrayList<ListModel>();
+        if (user.getType().equals("业务人员")) {
+            try {
+                jdbcTemplate.query("select id,merchant_id,merchant_name,merchant_tel,merchant_address,freight_type,reach_time, order_status, man_telephone from fu_order where order_status <>? and man_telephone=?", new Object[]{order_status, man_telephone},
+                        new RowCallbackHandler() {
+                            @Override
+                            public void processRow(ResultSet rs) throws SQLException {
+                                ListModel lm = new ListModel();
+                                lm.setId(rs.getString("id"));
+                                lm.setMerchant_id(rs.getString("merchant_id"));
+                                lm.setMerchant_name(rs.getString("merchant_name"));
+                                lm.setMerchant_tel(rs.getString("merchant_tel"));
+                                lm.setMerchant_address(rs.getString("merchant_address"));
+                                lm.setFreight_type(rs.getString("freight_type"));
+                                lm.setReach_time(rs.getString("reach_time"));
+                                lm.setOrder_status(rs.getString("order_status"));
+                                lm.setMan_telephone(rs.getString("man_telephone"));
+                                fulist.add(lm);
+                            }
+                        });
+                return fulist;
+            } catch (Exception e) {
+                return null;
+            }
+        } else {
+            try {
+                jdbcTemplate.query("select id,merchant_id,merchant_name,merchant_tel,merchant_address,freight_type,reach_time, order_status, man_telephone from fu_order where order_status <>?", new Object[]{order_status},
+                        new RowCallbackHandler() {
+                            @Override
+                            public void processRow(ResultSet rs) throws SQLException {
+                                ListModel lm = new ListModel();
+                                lm.setId(rs.getString("id"));
+                                lm.setMerchant_id(rs.getString("merchant_id"));
+                                lm.setMerchant_name(rs.getString("merchant_name"));
+                                lm.setMerchant_tel(rs.getString("merchant_tel"));
+                                lm.setMerchant_address(rs.getString("merchant_address"));
+                                lm.setFreight_type(rs.getString("freight_type"));
+                                lm.setReach_time(rs.getString("reach_time"));
+                                lm.setOrder_status(rs.getString("order_status"));
+                                lm.setMan_telephone(rs.getString("man_telephone"));
+                                fulist.add(lm);
+                            }
+                        });
+                return fulist;
+            } catch (Exception e) {
+                return null;
+            }
         }
     }
 
@@ -199,7 +239,7 @@ public class GoodsListDAO {
 
         final List<ListModel> fulist = new ArrayList<ListModel>();
         try {
-            jdbcTemplate.query("select merchant_name,merchant_tel,merchant_address,freight_type,freight_number,reach_time, order_status, man_telephone,order_time,update_time  from fu_order where id =?", new Object[]{order_id},
+            jdbcTemplate.query("select merchant_name,merchant_tel,merchant_address,freight_type,freight_number,reach_time, order_status, man_telephone,order_time,update_time,production_predict_time from fu_order where id =?", new Object[]{order_id},
                     new RowCallbackHandler() {
                         @Override
                         public void processRow(ResultSet rs) throws SQLException {
@@ -214,6 +254,7 @@ public class GoodsListDAO {
                             lm.setMan_telephone(rs.getString("man_telephone"));
                             lm.setOrder_time(rs.getString("order_time"));
                             lm.setUpdate_time(rs.getString("update_time"));
+                            lm.setProduction_predict_time(rs.getString("production_predict_time"));
                             fulist.add(lm);
                         }
                     });
@@ -235,7 +276,7 @@ public class GoodsListDAO {
     //更新Order状态
     public void UpdateOrderStatus(String id, String sql) {
         try {
-            jdbcTemplate.update(sql, new Object[]{currenttime2,id});
+            jdbcTemplate.update(sql, new Object[]{currenttime2, id});
         } catch (Exception e) {
             System.out.println("更新失败");
         }
