@@ -19,8 +19,8 @@ body{
 }
 .order_btn{
     width: 80%;
-    height: 65px;
-    font-size: 260%;
+    height: 50px;
+    font-size: 200%;
 }
 .order_table{
     width: 98%;
@@ -88,13 +88,14 @@ body{
 }
 //detail
 .detail_table{
+    text-align: left;
     width: 98%;
     height: 90px;
     font-size: 150%;
-    text-align:center
+    
 }
 .btn_detail{
-    width: 13%;
+    width: 20%;
 }
 //login
 .box {
@@ -148,7 +149,9 @@ body{
 .input-group {
     margin: 0px 0px 30px 0px !important;
 }
-.form-control,
+.form-control{
+    height: 40px;
+}
 .input-group {
     height: 40px;
 }
@@ -174,4 +177,10 @@ body{
 .btn-sm {
     padding: 8px 24px !important;
     font-size: 16px !important;
+}
+//login_success
+.login_success_btn{
+    width: 80%;
+    height: 50px;
+    font-size: 210%;
 }

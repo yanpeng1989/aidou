@@ -106,7 +106,7 @@ public class HomeController implements Serializable {
                 if (author.getType().equals("业务人员")) {
                     if (lastlist.size() > 0) {
                         goodListService.WriteListService(lastlist);
-                        goodListService.AddMerchantMsgService(request.getParameter("merchant_name"), request.getParameter("merchant_tel"), request.getParameter("merchant_address"), author.getTelephone(), lastlist.get(0).getOrder_id());
+                        goodListService.AddMerchantMsgService(request.getParameter("merchant_name"), request.getParameter("merchant_tel"), request.getParameter("merchant_address"), request.getParameter("comment"), author.getTelephone(), lastlist.get(0).getOrder_id());
                         return "/wechat/success";
                     } else {
                         return "/wechat/error";
@@ -166,7 +166,7 @@ public class HomeController implements Serializable {
                     System.out.println("异常2");
                 }
             }
-            return "/wechat/test";
+            return "/wechat/success";
         } else {
             return "/wechat/error";
         }
@@ -189,7 +189,7 @@ public class HomeController implements Serializable {
                     System.out.println("异常");
                 }
             }
-            return "/wechat/test";
+            return "/wechat/success";
         } else {
             return "/wechat/error";
         }
@@ -209,7 +209,7 @@ public class HomeController implements Serializable {
                 } catch (Exception e) {
                     System.out.println("异常2");
                 }
-                return "/wechat/test";
+                return "/wechat/success";
             } else {
                 return "/wechat/error";
             }
@@ -231,6 +231,7 @@ public class HomeController implements Serializable {
                     try {
                         String sql1 = "DELETE FROM fu_order WHERE id=?";
                         goodListService.DeleteOrderService(orderid, sql1);
+                        return "/wechat/success";
                     } catch (Exception e) {
                         return "/wechat/error";
                     }
@@ -238,17 +239,17 @@ public class HomeController implements Serializable {
                     try {
                         String sql2 = "UPDATE fu_order SET order_status = '订单无改变',update_time=? WHERE id = ?";
                         goodListService.UpdateOrderStatusService(orderid, sql2);
+                        return "/wechat/success";
                     } catch (Exception e) {
-                        System.out.println("异常2");
+                        return "/wechat/error";
                     }
-                    return "/wechat/test";
                 }
+            } else {
+                return "/wechat/error";
             }
-            return "/wechat/error";
         } else {
             return "/wechat/error";
         }
-
     }
 
     @RequestMapping(value = "agree_sendForm.do", method = RequestMethod.POST)
@@ -265,8 +266,9 @@ public class HomeController implements Serializable {
                 } catch (Exception e) {
                     System.out.println("异常2");
                 }
-                return "/wechat/test";
+                return "/wechat/success";
             } else {
+                System.out.println("异常3");
                 return "/wechat/error";
             }
         }
@@ -296,7 +298,7 @@ public class HomeController implements Serializable {
                 } catch (Exception e) {
                     System.out.println("异常2");
                 }
-                return "/wechat/test";
+                return "/wechat/success";
             } else {
                 return "/wechat/error";
             }
@@ -319,7 +321,7 @@ public class HomeController implements Serializable {
                 } catch (Exception e) {
                     System.out.println("异常2");
                 }
-                return "/wechat/test";
+                return "/wechat/success";
             } else {
                 return "/wechat/error";
             }
@@ -361,7 +363,7 @@ public class HomeController implements Serializable {
         try {
             if (goodListService.Login_MsgService(telephone, author)) {
                 model.addAttribute("telephone", telephone);
-                return "/wechat/success";
+                return "/wechat/login_success";
             } else {
                 return "/wechat/error";
             }
@@ -371,18 +373,17 @@ public class HomeController implements Serializable {
     }
 
     @RequestMapping(value = "login.do")
-    public String Login(HttpServletRequest request, Model model
-    ) {
+    public String Login(HttpServletRequest request, Model model) {
         return "/wechat/login";
     }
 
-    @RequestMapping(value = "test.do")
-    public String Test(HttpServletRequest request, Model model
-    ) {
-        model.addAttribute("key", "uuukey");
-        HttpSession session = request.getSession();
-        System.out.println(session.getAttribute("telephone"));
-        return "/wechat/test";
+    @RequestMapping(value = "success.do")
+    public String Test(HttpServletRequest request, Model model) {
+        return "/wechat/success";
     }
 
+    @RequestMapping(value = "success_close.do")
+    public String Success_close(HttpServletRequest request, Model model) {
+        return "/wechat/success_close";
+    }
 }

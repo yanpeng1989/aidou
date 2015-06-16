@@ -57,29 +57,16 @@
     <div id="jump">
         <div class="content">
             <h2>操作完成</h2>
-<!--            <p id="jump-link">
-                页面&nbsp;<span id="time">5</span>&nbsp;自动关闭 
-            </p>-->
+            <p id="jump-link"> 
+                页面&nbsp;<span id="time">0</span>&nbsp;秒后跳转
+            </p>
         </div>
-<!--    </div>
+    </div>
     <script type="text/javascript">
         (function () {
-            var timer,
-                    count = 5,
-                    show = document.getElementById('time');
-            show.innerHTML = count;
-            timer = setInterval(function () {
-                if (count <= 0)
-                {
-                    clearInterval(timer);
-                    window.opener = null;
-                    window.open('', '_self', '');
-                    window.close();
-                }
-                else
-                    show.innerHTML = --count;
-            }, 1000);
+            var win=window.open('', '_self', '');
+            win.close();
         })(window);
-    </script>-->
+    </script>
 </body>
 </html>

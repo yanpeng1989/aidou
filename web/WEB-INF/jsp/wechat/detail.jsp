@@ -57,7 +57,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button id="confirm_btn" type="button" class="btn btn-primary">确定</button>
+                        <button id="production_predict_btn" type="button" class="btn btn-primary">确定</button>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button id="confirm_btn" type="button" class="btn btn-primary">确定</button>
+                        <button id="agree_send_btn" type="button" class="btn btn-primary">确定</button>
                     </div>
                 </div>
             </div>
@@ -210,35 +210,43 @@
                     </tr>
                 </c:forEach>
             </table>
-            <table class="detail_table table table-hover">
+            <table style="text-align: left" class="detail_table table table-hover table-bordered">
                 <c:forEach var="fubDatail" items="${fubDatail}">
                     <tr>
-                        <td>下单时间：${fubDatail.order_time}</td>
-                        <td>更新时间：${fubDatail.update_time}</td>
+                        <td>
+                            <label style="width: 50%">下单时间：${fubDatail.order_time}</label>
+                            <label style="width: 45%">更新时间：${fubDatail.update_time}</label>
+                        </td>
                     </tr>
                     <tr>
-                        <td>预计完成生产时间：${fubDatail.production_predict_time}</td>
-                        <td></td>
+                        <td><label style="width: 95%">备注：${fubDatail.comment}</label></td>
                     </tr>
                     <tr>
-                        <td>经销商：${fubDatail.merchant_name}</td>
-                        <td> 电话：${fubDatail.merchant_tel}</td>
+                        <td><label style="width: 95%">预计完成生产时间：${fubDatail.production_predict_time}</label></td>
                     </tr>
                     <tr>
-                        <td>地址：${fubDatail.merchant_address}</td>
-                        <td></td>
+                        <td>
+                            <label style="width: 50%">经销商：${fubDatail.merchant_name}</label>
+                            <label style="width: 45%">电话：${fubDatail.merchant_tel}</label>
+                        </td>
                     </tr>
                     <tr>
-                        <td>运费形式：${fubDatail.freight_type}</td>
-                        <td>运费金额：${fubDatail.freight_number}</td>
+                        <td><label style="width: 95%">地址：${fubDatail.merchant_address}</label></td>
                     </tr>
                     <tr>
-                        <td>预计到达：${fubDatail.reach_time}</td>
-                        <td></td>
+                        <td>
+                            <label style="width: 50%">运费形式：${fubDatail.freight_type}</label>
+                            <label style="width: 45%">运费金额：${fubDatail.freight_number}</label>
+                        </td>
                     </tr>
                     <tr>
-                        <td>业务人员：${name}</td>
-                        <td>电话：${fubDatail.man_telephone}</td>
+                        <td><label style="width: 95%">预计到达：${fubDatail.reach_time}</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="width: 50%">业务人员：${name}</label>
+                            <label style="width: 45%">电话：${fubDatail.man_telephone}</label>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -248,6 +256,9 @@
             <button type="button" id="step_2" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#production_predictModal" >生产预计</button>
             <button type="button" id="step_3" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#production_completedModal" >生产完毕</button>
             <button type="button" id="step_4" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#changeModal" >订单调整</button>
+        </div>
+        <br/>
+        <div>
             <button type="button" id="step_5" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#agree_sendModal" >同意发货</button>
             <button type="button" id="step_6" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#sendModal" >订单发货</button>
             <button type="button" id="step_7" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#order_completedModal" >订单完成</button>
@@ -258,7 +269,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#confirmModal").on('shown.bs.modal', function () {
-            $("#step_1").click(function () {
+            $("#confirm_btn").click(function () {
                 if ($("#author_1").val() == "") {
                     alert("请输入授权码！");
                 } else {
@@ -268,28 +279,27 @@
         });
 
         $("#production_predictModal").on('shown.bs.modal', function () {
-            $('#step_2').click(function () {
+            $('#production_predict_btn').click(function () {
                 if ($("#author_2").val() == "") {
                     alert("请输入授权码！");
                 } else if ($("#production_predict_time").val() == "") {
                     alert("请输入预计完成时间！");
-                }
-                else {
+                } else {
                     $('#production_predictForm').submit();
                 }
             });
         });
         $("#production_completedModal").on('shown.bs.modal', function () {
-            $('#step_3').click(function () {
+            $('#production_completed_btn').click(function () {
                 if ($("#author_3").val() == "") {
                     alert("请输入授权码！");
                 } else {
-                    $('#changeForm').submit();
+                    $('#production_completedForm').submit();
                 }
             });
         });
         $("#changeModal").on('shown.bs.modal', function () {
-            $('#step_4').click(function () {
+            $('#change_btn').click(function () {
                 if ($("#author_4").val() == "") {
                     alert("请输入授权码！");
                 } else {
@@ -298,21 +308,21 @@
             });
         });
         $("#agree_sendModal").on('shown.bs.modal', function () {
-            $('#step_5').click(function () {
+            $('#agree_send_btn').click(function () {
                 if ($("#author_5").val() == "") {
                     alert("请输入授权码！");
                 } else {
-                    $('#changeForm').submit();
+                    $('#agree_sendForm').submit();
                 }
             });
         });
         $("#sendModal").on('shown.bs.modal', function () {
-            $('#step_6').click(function () {
+            $('#send_btn').click(function () {
                 if ($("#freight_number").val() == "") {
                     alert("请输入运费金额！");
                 } else if ($("#reach_time").val() == "") {
                     alert("请输入预计到达时间！");
-                } else if ($("#author_4").val() == "") {
+                } else if ($("#author_6").val() == "") {
                     alert("请输入授权码！");
                 } else if ($("#freight_type").val() == "") {
                     alert("请输入运费形式！");
@@ -323,31 +333,100 @@
         });
         $("#order_completedModal").on('shown.bs.modal', function () {
             $('#order_completed_btn').click(function () {
-                $('#order_completedForm').submit();
+                if ($("#author_7").val() == "") {
+                    alert("请输入授权码！");
+                } else {
+                    $('#order_completedForm').submit();
+                }
             });
         });
         var order_status = $("#key_label").val();
-        if (order_status == "已确认") {
-            $("#confirm").attr('disabled', "true");
+        if (order_status == "已下单") {
+            $("#step_2").attr('disabled', "true");
+            $("#step_3").attr('disabled', "true");
+            $("#step_4").attr('disabled', "true");
+            $("#step_5").attr('disabled', "true");
+            $("#step_6").attr('disabled', "true");
+            $("#step_7").attr('disabled', "true");
+        } else if (order_status == "已确认") {
+            $("#step_1").attr('disabled', "true");
+            $("#step_1").css("background-color", "#FF0000");
+            $("#step_3").attr('disabled', "true");
+            $("#step_4").attr('disabled', "true");
+            $("#step_5").attr('disabled', "true");
+            $("#step_6").attr('disabled', "true");
+            $("#step_7").attr('disabled', "true");
         }
-        else if (order_status == "生产完毕") {
-            $("#confirm").attr('disabled', "true");
-            $("#production_completed").attr('disabled', "true");
+        else if (order_status == "预计生产") {
+            $("#step_1").attr('disabled', "true");
+            $("#step_1").css("background-color", "#FF0000");
+            $("#step_2").attr('disabled', "true");
+            $("#step_2").css("background-color", "#FF0000");
+            $("#step_4").attr('disabled', "true");
+            $("#step_5").attr('disabled', "true");
+            $("#step_6").attr('disabled', "true");
+            $("#step_7").attr('disabled', "true");
+        } else if (order_status == "生产完毕") {
+            $("#step_1").attr('disabled', "true");
+            $("#step_1").css("background-color", "#FF0000");
+            $("#step_2").attr('disabled', "true");
+            $("#step_2").css("background-color", "#FF0000");
+            $("#step_3").attr('disabled', "true");
+            $("#step_3").css("background-color", "#FF0000");
+            $("#step_5").attr('disabled', "true");
+            $("#step_6").attr('disabled', "true");
+            $("#step_7").attr('disabled', "true");
         } else if (order_status == "订单无改变") {
-            $("#confirm").attr('disabled', "true");
-            $("#production_completed").attr('disabled', "true");
-            $("#change").attr('disabled', "true");
+            $("#step_1").attr('disabled', "true");
+            $("#step_1").css("background-color", "#FF0000");
+            $("#step_2").attr('disabled', "true");
+            $("#step_2").css("background-color", "#FF0000");
+            $("#step_3").attr('disabled', "true");
+            $("#step_3").css("background-color", "#FF0000");
+            $("#step_4").attr('disabled', "true");
+            $("#step_4").css("background-color", "#FF0000");
+            $("#step_6").attr('disabled', "true");
+            $("#step_7").attr('disabled', "true");
+        } else if (order_status == "允许发货") {
+            $("#step_1").attr('disabled', "true");
+            $("#step_1").css("background-color", "#FF0000");
+            $("#step_2").attr('disabled', "true");
+            $("#step_2").css("background-color", "#FF0000");
+            $("#step_3").attr('disabled', "true");
+            $("#step_3").css("background-color", "#FF0000");
+            $("#step_4").attr('disabled', "true");
+            $("#step_4").css("background-color", "#FF0000");
+            $("#step_5").attr('disabled', "true");
+            $("#step_5").css("background-color", "#FF0000");
+            $("#step_7").attr('disabled', "true");
         } else if (order_status == "订单发货") {
-            $("#confirm").attr('disabled', "true");
-            $("#production_completed").attr('disabled', "true");
-            $("#change").attr('disabled', "true");
-            $("#send").attr('disabled', "true");
+            $("#step_1").attr('disabled', "true");
+            $("#step_1").css("background-color", "#FF0000");
+            $("#step_2").attr('disabled', "true");
+            $("#step_2").css("background-color", "#FF0000");
+            $("#step_3").attr('disabled', "true");
+            $("#step_3").css("background-color", "#FF0000");
+            $("#step_4").attr('disabled', "true");
+            $("#step_4").css("background-color", "#FF0000");
+            $("#step_5").attr('disabled', "true");
+            $("#step_5").css("background-color", "#FF0000");
+            $("#step_6").attr('disabled', "true");
+            $("#step_6").css("background-color", "#FF0000");
         } else if (order_status == "订单完成") {
-            $("#confirm").attr('disabled', "true");
-            $("#production_completed").attr('disabled', "true");
-            $("#change").attr('disabled', "true");
-            $("#send").attr('disabled', "true");
-            $("#order_completed").attr('disabled', "true");
+            $("#step_1").attr('disabled', "true");
+            $("#step_1").css("background-color", "#FF0000");
+            $("#step_2").attr('disabled', "true");
+            $("#step_2").css("background-color", "#FF0000");
+            $("#step_3").attr('disabled', "true");
+            $("#step_3").css("background-color", "#FF0000");
+            $("#step_4").attr('disabled', "true");
+            $("#step_4").css("background-color", "#FF0000");
+            $("#step_5").attr('disabled', "true");
+            $("#step_5").css("background-color", "#FF0000");
+            $("#step_6").attr('disabled', "true");
+            $("#step_6").css("background-color", "#FF0000");
+            $("#step_7").attr('disabled', "true");
+            $("#step_7").css("background-color", "#FF0000");
         }
     });
 </script>

@@ -25,7 +25,7 @@
                                     <div class="col-xs-12  ">
                                         <div class="input-group">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                            <input type="text" id="telephone" name="telephone" class="form-control" placeholder="手机号">
+                                            <input type="text" style="height: 40px" class="form-control" id="telephone" name="telephone"  placeholder="手机号">
                                         </div>
                                     </div>
                                 </div>
@@ -33,7 +33,7 @@
                                     <div class="col-xs-12  ">
                                         <div class="input-group">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                            <input type="text" id="author" name="author" class="form-control" placeholder="授权码">
+                                            <input type="text" id="author" name="author" style="height: 40px" class="form-control" placeholder="授权码">
                                         </div>
                                     </div>
                                 </div>

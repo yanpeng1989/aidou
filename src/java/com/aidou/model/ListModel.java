@@ -24,6 +24,7 @@ public class ListModel {
     public String order_time;
     public String update_time;
     public String production_predict_time;
+    public String comment;
     public String sum;
 
     public String getId() {
@@ -128,6 +129,14 @@ public class ListModel {
 
     public void setProduction_predict_time(String production_predict_time) {
         this.production_predict_time = production_predict_time;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getSum() {

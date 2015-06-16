@@ -14,8 +14,8 @@
     <body>
         <div class="main_contain">
             <div style="margin-top: 20%">
-                <label>下单错误</label>
-                <label>请重新下单</label>
+                <label>验证错误</label>
+                <label>请重新操作</label>
             </div>
         </div>
     </body>

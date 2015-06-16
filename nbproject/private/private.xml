@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/F:/aidou/web/css/main.css</file>
-            <file>file:/F:/aidou/web/WEB-INF/jsp/wechat/finished.jsp</file>
-            <file>file:/F:/aidou/web/WEB-INF/jsp/wechat/detail.jsp</file>
-            <file>file:/F:/aidou/src/java/com/aidou/tool/CurrentTime.java</file>
-            <file>file:/F:/aidou/src/java/com/aidou/web/HomeController.java</file>
-            <file>file:/F:/aidou/src/java/com/aidou/model/ListModel.java</file>
-            <file>file:/F:/aidou/src/java/com/aidou/dao/GoodsListDAO.java</file>
-            <file>file:/F:/aidou/web/WEB-INF/jsp/wechat/unfinished.jsp</file>
-            <file>file:/F:/aidou/src/java/com/aidou/service/GoodListService.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

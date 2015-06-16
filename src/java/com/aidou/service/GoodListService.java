@@ -51,14 +51,14 @@ public class GoodListService {
         return goodsListDAO.IsAuthority(authority);
     }
 
-    public void AddMerchantMsgService(final String merchant_name, final String merchant_tel, final String merchant_address, final String man_telephone, final String id) {
-        goodsListDAO.AddMerchantMsg(merchant_name, merchant_tel, merchant_address, man_telephone, id);
+    public void AddMerchantMsgService(final String merchant_name, final String merchant_tel, final String merchant_address, final String comment, final String man_telephone, final String id) {
+        goodsListDAO.AddMerchantMsg(merchant_name, merchant_tel, merchant_address, comment, man_telephone, id);
     }
 
-    public List<ListModel> GetFuListService(String order_status,String man_telephone) {
+    public List<ListModel> GetFuListService(String order_status, String man_telephone) {
         String name;
         String sum;
-        List<ListModel> fulist = goodsListDAO.GetFuList(order_status,man_telephone);
+        List<ListModel> fulist = goodsListDAO.GetFuList(order_status, man_telephone);
         for (int i = 0; i < fulist.size(); i++) {
             ListModel ls = fulist.get(i);
             name = goodsListDAO.GetMan(ls.getMan_telephone()).getName();
@@ -89,10 +89,10 @@ public class GoodListService {
         }
     }
 
-    public List<ListModel> GetFuListFinishedService(String order_status,String man_telephone) {
+    public List<ListModel> GetFuListFinishedService(String order_status, String man_telephone) {
         String name;
         String sum;
-        List<ListModel> fulist = goodsListDAO.GetFuListFinished(order_status,man_telephone);
+        List<ListModel> fulist = goodsListDAO.GetFuListFinished(order_status, man_telephone);
         for (int i = 0; i < fulist.size(); i++) {
             ListModel ls = fulist.get(i);
             name = goodsListDAO.GetMan(ls.getMan_telephone()).getName();
@@ -106,7 +106,8 @@ public class GoodListService {
     public List<GoodsModel> GoodsDetailService(String brand) {
         return goodsListDAO.GoodsDetail(brand);
     }
-    public boolean Login_MsgService(String telephone, String author){
+
+    public boolean Login_MsgService(String telephone, String author) {
         return goodsListDAO.Login_Msg(telephone, author);
     }
 
