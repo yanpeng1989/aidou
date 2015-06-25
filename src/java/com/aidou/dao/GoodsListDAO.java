@@ -32,9 +32,6 @@ public class GoodsListDAO {
     @Autowired
     public JdbcTemplate jdbcTemplate;
 
-    CurrentTime currenttime = new CurrentTime();
-    String currenttime2 = currenttime.CurrentTime2();
-
 //获取物品列表清单
     public List<GoodsModel> getGoods() {
         String SQL = "select id,brand,proname,label from goods";
@@ -54,6 +51,8 @@ public class GoodsListDAO {
 
 //选择物品写入子清单列表
     public void WriteListDAO(final List<OrderListModel> orderlist) {
+        CurrentTime currenttime = new CurrentTime();
+        final String currenttime2 = currenttime.CurrentTime2();
         if (orderlist.size() > 0) {
             for (int i = 0; i < orderlist.size(); i++) {
                 final OrderListModel olm = orderlist.get(i);
@@ -106,6 +105,8 @@ public class GoodsListDAO {
 
 //更新父清单订购商信息
     public void AddMerchantMsg(final String merchant_name, final String merchant_tel, final String merchant_address, final String comment, final String man_telephone, final String id) {
+        final CurrentTime currenttime = new CurrentTime();
+        String currenttime2 = currenttime.CurrentTime2();
         try {
             jdbcTemplate.update("UPDATE fu_order SET merchant_name = ? ,merchant_tel = ?,merchant_address = ?,comment= ?,man_telephone = ?,update_time=? WHERE id = ?", new Object[]{merchant_name, merchant_tel, merchant_address, comment, man_telephone, currenttime2, id});
         } catch (Exception e) {
@@ -276,6 +277,8 @@ public class GoodsListDAO {
 
     //更新Order状态
     public void UpdateOrderStatus(String id, String sql) {
+        final CurrentTime currenttime = new CurrentTime();
+        String currenttime2 = currenttime.CurrentTime2();
         try {
             jdbcTemplate.update(sql, new Object[]{currenttime2, id});
         } catch (Exception e) {

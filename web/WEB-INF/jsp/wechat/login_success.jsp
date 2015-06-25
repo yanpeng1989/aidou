@@ -20,7 +20,8 @@
                     <div class="login-content ">
                         <div class="form">
                             <a href="/aidou/wechat/finished.do"><button  type="button" class="login_success_btn btn btn-primary btn-lg" >已完成订单</button></a><br/><br/><br/>
-                            <a href="/aidou/wechat/unfinished.do"><button  type="button" class="login_success_btn btn btn-primary btn-lg" >未完成订单</button></a>
+                            <a href="/aidou/wechat/unfinished.do"><button  type="button" class="login_success_btn btn btn-primary btn-lg" >未完成订单</button></a><br/><br/><br/>
+                            <a href="/aidou/wechat/order.do"><button  type="button" class="login_success_btn btn btn-primary btn-lg" >开始下单</button>
                         </div>
                     </div>
                 </div>
