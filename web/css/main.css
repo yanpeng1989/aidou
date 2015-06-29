@@ -1,0 +1,186 @@
+/* 
+    Created on : 2015-4-27, 22:19:42
+    Author     : Administrator
+*/
+body{
+    background-color:#F7F7F9;
+    text-align:center;
+}
+.main_contain{
+    margin:0 auto;
+    width: 100%;
+    border: crimson solid 0px
+}
+
+.button_style{
+    width: 32%;
+    height: 60px;
+    font-size: 150%;
+}
+.order_btn{
+    width: 80%;
+    height: 50px;
+    font-size: 200%;
+}
+.order_table{
+    width: 98%;
+    height: 60px;
+    font-size: 150%;
+    text-align:center
+}
+.order_td_0{
+    width: 15%;
+    height: 80px;
+}
+.order_td_1{
+    width: 30%;
+    height: 80px;
+}
+.order_td_2{
+    width: 10%;
+    height: 80px;
+}
+.order_td_3{
+    width: 20%;
+    height: 80px;
+}
+
+//orderlist
+.list_table{
+    width: 98%;
+    height: 90px;
+    font-size: 150%;
+    text-align:center
+}
+//unfinished
+.unfinished_table{
+    width: 98%;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_0{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_1{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_2{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_td_3{
+    width: 15%;
+    height: 50px;
+    font-size: 100%;
+    text-align:center
+}
+.unfinished_btn{
+    height: 40px;
+    font-size: 100%;
+}
+//detail
+.detail_table{
+    text-align: left;
+    width: 98%;
+    height: 90px;
+    font-size: 150%;
+    
+}
+.btn_detail{
+    width: 20%;
+}
+//login
+.box {
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6699FF', endColorstr='#6699FF'); /*  IE */
+    background-image:linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+    background-image:-o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+    background-image:-moz-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+    background-image:-webkit-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+    background-image:-ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.login-box {
+    width: 100%;
+    max-width:500px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+
+    margin-top: -200px;
+    /*设置负值，为要定位子盒子的一半高度*/
+
+}
+@media screen and (min-width:500px){
+    .login-box {
+        left: 50%;
+        /*设置负值，为要定位子盒子的一半宽度*/
+        margin-left: -250px;
+    }
+}	
+
+.form {
+    width: 100%;
+    max-width:500px;
+    height: 275px;
+    margin: 25px auto 0px auto;
+    padding-top: 25px;
+}	
+.login-content {
+    height: 300px;
+    width: 100%;
+    max-width:500px;
+    background-color: rgba(255, 250, 2550, .6);
+    float: left;
+}		
+
+
+.input-group {
+    margin: 0px 0px 30px 0px !important;
+}
+.form-control{
+    height: 40px;
+}
+.input-group {
+    height: 40px;
+}
+
+.form-group {
+    margin-bottom: 0px !important;
+}
+.login-title {
+    padding: 20px 10px;
+    background-color: rgba(0, 0, 0, .6);
+}
+.login-title h1 {
+    margin-top: 10px !important;
+}
+.login-title small {
+    color: #fff;
+}
+
+.link p {
+    line-height: 20px;
+    margin-top: 30px;
+}
+.btn-sm {
+    padding: 8px 24px !important;
+    font-size: 16px !important;
+}
+//login_success
+.login_success_btn{
+    width: 80%;
+    height: 50px;
+    font-size: 210%;
+}
