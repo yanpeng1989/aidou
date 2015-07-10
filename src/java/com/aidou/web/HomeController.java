@@ -356,8 +356,7 @@ public class HomeController implements Serializable {
 //登录
 
     @RequestMapping(value = "login_form.do")
-    public String LoginForm(HttpServletRequest request, Model model
-    ) {
+    public String LoginForm(HttpServletRequest request, Model model) {
         String telephone = request.getParameter("telephone");
         String author = request.getParameter("author");
         try {
