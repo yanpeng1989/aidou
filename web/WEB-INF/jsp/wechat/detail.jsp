@@ -22,11 +22,11 @@
                         <div class="modal-body">
                             <form id="confirmForm" name="confirmForm" action="/aidou/wechat/confirmForm.do" method="post">
                                 <div class="form-group">
-                                    订单情况<select name="order_msg" class="form-control">
+                                    <select name="order_msg" class="form-control">
                                         <option value="订单无误" selected="selected">订单无误</option>
                                         <option value="订单有误" selected="selected">订单有误</option>
                                     </select>
-                                    授权码<input id="author_1" type="text" name="author" class="form-control" id="recipient-name">
+                                    <input id="author_1" type="text" name="author" class="form-control" id="recipient-name" placeholder="授权码">
                                     <input name="order_id" value="${id}" hidden="true">
                             </div>
                         </form>
@@ -49,8 +49,8 @@
                     <div class="modal-body">
                         <form id="production_predictForm" name="production_predictForm" action="/aidou/wechat/production_predictForm.do" method="post">
                             <div class="form-group">
-                                预计生产完成时间<input id="production_predict_time" type="text" name="production_predict_time" class="form-control" id="recipient-name">
-                                授权码<input id="author_2" type="text" name="author" class="form-control" id="recipient-name">
+                                <input id="production_predict_time" type="text" name="production_predict_time" class="form-control" id="recipient-name" placeholder="预计生产完成时间">
+                                <input id="author_2" type="text" name="author" class="form-control" id="recipient-name" placeholder="授权码">
                                 <input name="order_id" value="${id}" hidden="true">
                             </div>
                         </form>
@@ -73,7 +73,7 @@
                     <div class="modal-body">
                         <form id="production_completedForm" name="production_completedForm" action="/aidou/wechat/production_completedForm.do" method="post">
                             <div class="form-group">
-                                授权码<input id="author_3" type="text" name="author" class="form-control" id="recipient-name">
+                                <input id="author_3" type="text" name="author" class="form-control" id="recipient-name" placeholder="授权码">
                                 <input  name="order_id" value="${id}" hidden="true">
                                 <input  name="order_status" value="${order_status}" hidden="true">
                             </div>
@@ -97,11 +97,11 @@
                     <div class="modal-body">
                         <form id="changeForm" name="changeForm" action="/aidou/wechat/changeForm.do" method="post">
                             <div  class="form-group">
-                                订单情况<select name="order_msg" class="form-control">
+                                <select name="order_msg" class="form-control" >
                                     <option value="订单无误" selected="selected">订单无误</option>
                                     <option value="订单有误" selected="selected">订单有误</option>
                                 </select>
-                                授权码<input id="author_4" type="text" name="author" class="form-control" id="recipient-name">
+                                <input id="author_4" type="text" name="author" class="form-control" id="recipient-name" placeholder="授权码">
                                 <input name="order_id" value="${id}" hidden="true">
                                 <input  name="order_status" value="${order_status}" hidden="true">
                             </div>
@@ -125,7 +125,7 @@
                     <div class="modal-body">
                         <form id="agree_sendForm" name="agree_sendForm" action="/aidou/wechat/agree_sendForm.do" method="post">
                             <div class="form-group">
-                                授权码<input id="author_5" type="text" name="author" class="form-control" id="recipient-name">
+                                <input id="author_5" type="text" name="author" class="form-control" id="recipient-name" placeholder="授权码">
                                 <input name="order_id" value="${id}" hidden="true">
                                 <input  name="order_status" value="${order_status}" hidden="true">
                             </div>
@@ -149,14 +149,14 @@
                     <div class="modal-body">
                         <form id="sendForm" name="sendForm" action="/aidou/wechat/sendForm.do" method="post">
                             <div class="form-group">
-                                运费金额<input id="freight_number" type="text" name="freight_number" class="form-control">
-                                运费形式<select id="freight_type" name="freight_type" class="form-control">
+                                <input id="freight_number" type="text" name="freight_number" class="form-control" placeholder="运费金额">
+                                <select id="freight_type" name="freight_type" class="form-control" placeholder="运费形式">
                                     <option value="物流垫付" selected="selected">物流垫付</option>
                                     <option value="客户垫付" selected="selected">客户垫付</option>
                                     <option value="客户自理" selected="selected">客户自理</option>
                                 </select>
-                                预计到达时间<input id="reach_time" type="text" name="reach_time" class="form-control">
-                                授权码<input id="author_6" type="text" name="author" class="form-control" id="recipient-name">
+                                <input id="reach_time" type="text" name="reach_time" class="form-control" placeholder="预计到达时间">
+                                <input id="author_6" type="text" name="author" class="form-control" id="recipient-name" placeholder="授权码">
                                 <input name="order_id" value="${id}" hidden="true">
                                 <input  name="order_status" value="${order_status}" hidden="true">
                             </div>
@@ -180,7 +180,7 @@
                     <div class="modal-body">
                         <form id="order_completedForm" name="order_completedForm" action="/aidou/wechat/order_completedForm.do" method="post">
                             <div class="form-group">
-                                授权码<input id="author_7" type="text" name="author" class="form-control" id="recipient-name">
+                                <input id="author_7" type="text" name="author" class="form-control" id="recipient-name" placeholder="授权码">
                                 <input name="order_id" value="${id}" hidden="true">
                                 <input  name="order_status" value="${order_status}" hidden="true">
                             </div>
@@ -255,12 +255,15 @@
             <button type="button" id="step_1" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#confirmModal" >订单确认</button>
             <button type="button" id="step_2" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#production_predictModal" >生产预计</button>
             <button type="button" id="step_3" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#production_completedModal" >生产完毕</button>
-            <button type="button" id="step_4" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#changeModal" >订单调整</button>
         </div>
         <br/>
         <div>
+            <button type="button" id="step_4" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#changeModal" >订单调整</button>
             <button type="button" id="step_5" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#agree_sendModal" >同意发货</button>
             <button type="button" id="step_6" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#sendModal" >订单发货</button>
+        </div>
+        <br/>
+        <div>
             <button type="button" id="step_7" class="btn_detail btn btn-primary" data-toggle="modal" data-target="#order_completedModal" >订单完成</button>
         </div>
         <input id="key_label" value="${order_status}" hidden="true">
